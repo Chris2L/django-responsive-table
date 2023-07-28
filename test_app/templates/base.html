@@ -19,6 +19,10 @@
         </div>
         
         <!-- Specific Page JS goes HERE  -->
+        {% comment %} <script src="{% static 'js/htmx.js' %}" defer></script> {% endcomment %}
+        <script src="https://unpkg.com/htmx.org@1.9.4" defer></script>
+        <script src="https://unpkg.com/htmx.org/dist/ext/ws.js" defer></script>
+        {% django_htmx_script %}
         {% block javascripts %}
         {% endblock javascripts %}
     </body>
