@@ -43,6 +43,8 @@ INSTALLED_APPS = [
     "django_htmx",
 
     "responsive_table",
+
+    "test_app",
 ]
 
 MIDDLEWARE = [
