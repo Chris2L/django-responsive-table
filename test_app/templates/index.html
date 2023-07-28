@@ -1,6 +1,43 @@
 {% extends "base.html" %}
 {% block content %}
-    <h1>Hi there</h1>
+    <h1>Author Table</h1>
+
+    <table class="table" id="htmx-table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Lastname</th>
+                <th>Country</th>
+                <th>E-Mail</th>
+                <th>Still Alive</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for author in authors %}
+                <tr>
+                    <td>
+                        {{ author.name }}
+                    </td>
+                    <td>
+                        {{ author.lastname }}
+                    </td>
+                    <td>
+                        {{ author.country }}
+                    </td>
+                    <td>
+                        {{ author.email }}
+                    </td>
+                    <td>
+                        {{ author.still_alive }}
+                    </td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="8" class="text-center bg-warning">No Companies</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 {% endblock content %}
 <!-- Specific Page JS goes HERE  -->
 {% block javascripts %}
