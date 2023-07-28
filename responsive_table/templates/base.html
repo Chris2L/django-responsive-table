@@ -1,0 +1,25 @@
+{% load django_htmx %}
+{% load static %}
+
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <!-- Primary Meta Tags -->
+        <title>
+            Responsive Table
+        </title>
+        {% block stylesheets %}
+        {% endblock stylesheets %}
+    </head>
+    <body hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}' id="body-pd">
+        <div>
+            {% block content %}
+            {% endblock content %}
+        </div>
+        
+        <!-- Specific Page JS goes HERE  -->
+        {% block javascripts %}
+        {% endblock javascripts %}
+    </body>
+</html>
