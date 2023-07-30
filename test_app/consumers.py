@@ -1,6 +1,10 @@
 from channels.generic.websocket import WebsocketConsumer
 from asgiref.sync import async_to_sync
 from django.template.loader import get_template
+import json
+
+from .forms import AuthorForm
+from .models import Author
 
 class TableConsumer(WebsocketConsumer):
     def connect(self):
@@ -18,14 +22,34 @@ class TableConsumer(WebsocketConsumer):
         # Called when the socket closes
 
     def receive(self, text_data=None, bytes_data=None):
-        self.send(text_data="Hello world!")
+        data = json.loads(text_data)
+        kwargs = {}
+        for d in data:
+            if "HEADERS" in d:
+                break
+            prop, id = d.split("-")
+            kwargs["id"] = int(id)
+            kwargs[prop] = data[d]
+        print(kwargs)
+
+        try:
+            inst = Author.objects.get(id=kwargs["id"])
+            for arg in kwargs:
+                print(f"{arg} - {kwargs[arg]}")
+                
+                setattr(inst, arg, True if kwargs[arg] == "on" else kwargs[arg] )
+            inst.save()
+            print("This should be an update")
+        except:
+            form = AuthorForm(kwargs)
+            print("This should be an add")
+
 
     def row_created(self, event):
         html = get_template("partials/row.html").render(context={
             "author": event["data"],
             "adding": True
             })
-        print(f"Sending the following html\n{html}")
         self.send(text_data=html)
 
     def row_updated(self, event):
@@ -33,6 +57,12 @@ class TableConsumer(WebsocketConsumer):
             "author": event["data"],
             "swapping": True
             })
-        print(f"Sending the following html\n{html}")
+        self.send(text_data=html)
+
+    def row_deleted(self, event):
+        html = get_template("partials/row.html").render(context={
+            "author": event["data"],
+            "removing": True
+            })
         self.send(text_data=html)
         

@@ -1,27 +1,40 @@
-{% if adding %}
-<tbody id="htmx-table-body" hx-swap-oob="beforeend">
-{% endif %}
-    <tr id="row_{{ author.pk }}"
-        {% if swapping %}
-        hx-swap-oob="outerHTML"
-        {% endif %}    
-    >
-        <td>
-            {{ author.name }}
-        </td>
-        <td>
-            {{ author.lastname }}
-        </td>
-        <td>
-            {{ author.country }}
-        </td>
-        <td>
-            {{ author.email }}
-        </td>
-        <td>
-            {{ author.still_alive }}
-        </td>
-    </tr>
-{% if swapping %}
-</tbody>
-{% endif %}
+
+{% if removing %}
+    <tr id="row-{{ author.pk }}"
+            hx-swap-oob="delete"  
+        />
+{% else %}
+    {% if adding %}
+    <tbody id="htmx-table-body" hx-swap-oob="beforeend">
+    {% endif %}
+        <tr id="row-{{ author.pk }}"
+            {% if swapping %}
+            hx-swap-oob="morph"
+            {% endif %}  
+        >
+        <form id="form-{{ author.pk }}" ws-send>
+                <td>
+                    <input id="name-{{ author.pk }}" name="name-{{ author.pk }}" value="{{ author.name }}" _="on focusout call #form-{{ author.pk }}.submit()"  ws-send/>
+                </td>
+                <td>
+                    <input id="lastname-{{ author.pk }}" name="lastname-{{ author.pk }}" value="{{ author.lastname }}" _="on focusout call #form-{{ author.pk }}.submit()"  ws-send/>
+                </td>
+                <td>
+                    <input id="country-{{ author.pk }}" name="country-{{ author.pk }}" value="{{ author.country }}" _="on focusout call #form-{{ author.pk }}.submit()"  ws-send/>
+                </td>
+                <td>
+                    <input id="email-{{ author.pk }}" name="email-{{ author.pk }}" value="{{ author.email }}" _="on focusout call #form-{{ author.pk }}.submit()"  ws-send/>
+                </td>
+                <td>
+                    <input id="still_alive-{{ author.pk }}" name="still_alive-{{ author.pk }}" type="checkbox" {% if author.still_alive %}checked{% endif %} _="on focusout call #form-{{ author.pk }}.submit()"  ws-send/>
+                </td>
+                <td>
+                    <button _="on click call #form-{{ author.pk }}.submit()">+</button>
+                </td>
+            </tr>
+        </form>
+    {% if swapping %}
+    </tbody>
+    {% endif %}
+
+{% endif %}  
