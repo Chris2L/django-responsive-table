@@ -2,7 +2,8 @@
 {% block content %}
     <h1>Author Table</h1>
 
-    <table class="table" id="htmx-table">
+    <table class="table" id="htmx-table"
+        hx-ext="ws" ws-connect="/ws/tables/">
         <thead>
             <tr>
                 <th>Name</th>
@@ -12,28 +13,12 @@
                 <th>Still Alive</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody id="htmx-table-body">
             {% for author in authors %}
-                <tr>
-                    <td>
-                        {{ author.name }}
-                    </td>
-                    <td>
-                        {{ author.lastname }}
-                    </td>
-                    <td>
-                        {{ author.country }}
-                    </td>
-                    <td>
-                        {{ author.email }}
-                    </td>
-                    <td>
-                        {{ author.still_alive }}
-                    </td>
-                </tr>
+                {% include "partials/row.html" %}
             {% empty %}
                 <tr>
-                    <td colspan="8" class="text-center bg-warning">No Companies</td>
+                    <td colspan="8" class="text-center bg-warning">No Authors</td>
                 </tr>
             {% endfor %}
         </tbody>

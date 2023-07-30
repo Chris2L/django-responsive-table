@@ -1,0 +1,27 @@
+{% if adding %}
+<tbody id="htmx-table-body" hx-swap-oob="beforeend">
+{% endif %}
+    <tr id="row_{{ author.pk }}"
+        {% if swapping %}
+        hx-swap-oob="outerHTML"
+        {% endif %}    
+    >
+        <td>
+            {{ author.name }}
+        </td>
+        <td>
+            {{ author.lastname }}
+        </td>
+        <td>
+            {{ author.country }}
+        </td>
+        <td>
+            {{ author.email }}
+        </td>
+        <td>
+            {{ author.still_alive }}
+        </td>
+    </tr>
+{% if swapping %}
+</tbody>
+{% endif %}
