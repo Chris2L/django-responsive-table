@@ -3,3 +3,7 @@ daphne==4.0.0
 Django==4.2.3
 django-extensions==3.2.3
 django-htmx==1.16.0
+django-model-utils==4.3.1
+django_tables2==2.6.0
+django-bootstrap5==23.3
+django-filter==23.3

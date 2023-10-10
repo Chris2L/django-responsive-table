@@ -10,8 +10,8 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
-from pathlib import Path
 import os
+from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -44,6 +44,8 @@ INSTALLED_APPS = [
     'django_extensions',
     "channels",
     "django_htmx",
+    "django_tables2",
+    "django_bootstrap5",
 
     "responsive_table",
 
@@ -144,3 +146,7 @@ CHANNEL_LAYERS = {
         "BACKEND": "channels.layers.InMemoryChannelLayer"
     }
 }
+
+
+
+# DJANGO_TABLES2_TEMPLATE = "django_tables2/bootstrap5.html"

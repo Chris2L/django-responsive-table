@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{# Load the tag library #}
+{% load django_bootstrap5 %}
+{% load render_table from django_tables2 %}
+{% load i18n %}
+{% comment %} {% load crispy_forms_tags %} {% endcomment %}
+
+{# Load CSS and JavaScript #}
+{% block stylesheets %}
+{% bootstrap_css %}
+{% endblock stylesheets %}
+
+{% block javascripts %}
+{% bootstrap_javascript %}
+{% endblock javascripts %}
+
+{# Display django.contrib.messages as Bootstrap alerts #}
+{% bootstrap_messages %}
+
+{% block content %}
+    <h1>Product table</h1>
+
+    {# Search form #}
+    <form        
+        >
+        {{ filter.form.as_p }}
+    </form>
+
+    {# Progress indicator #}
+    <div class="progress">
+        <div class="indeterminate"></div>
+    </div>
+
+    {% include "htmx/table.html" %}
+{% endblock %}
